@@ -71,6 +71,8 @@ public class createScaffold {
 		
 		ecrivain.write("Graph g{ \n");
 		
+		int cnumber=0;
+		
 		for(Contig contig: graph.getContigs()) {
 			if(contig.getVertices().size()==2) {
 				Vertex vertex1 = contig.getVertices().get(0);
@@ -79,11 +81,13 @@ public class createScaffold {
 				ecrivain.write(vertex1.getNum() + " [label="+ vertex1.getNum() +"];\n");
 				ecrivain.write(vertex2.getNum() + " [label="+ vertex2.getNum() +"];\n");
 				
-				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [cname="+"_len_"+contig.getLength()+",length="+contig.getLength()+","
+				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [cname="+cnumber+"_len_"+contig.getLength()+",length="+contig.getLength()+","
 																		+ "style=bold,mult="+contig.getMultiplicity()+"];\n");
 			}else {
 				//System.out.println("contig: "+ contig.getLength());
 			}
+			
+			cnumber++;
 		}
 		
 		for(Edge edge: graph.getEdges()) {
