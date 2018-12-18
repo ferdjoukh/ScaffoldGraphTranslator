@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/ScaffoldGraph/src" modelPluginID="ScaffoldGraph"
+    modelName="ScaffoldsAC" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>../../Grimm/scaffoldsAC.ecore</foreignModel>
+  <genPackages prefix="Scaffolds" disposableProviderFactory="true" ecorePackage="scaffoldsAC.ecore#/">
+    <genClasses ecoreClass="scaffoldsAC.ecore#//ScaffoldGraph">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scaffoldsAC.ecore#//ScaffoldGraph/contigs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scaffoldsAC.ecore#//ScaffoldGraph/edges"/>
+    </genClasses>
+    <genClasses ecoreClass="scaffoldsAC.ecore#//Contig">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference scaffoldsAC.ecore#//Contig/vertices"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scaffoldsAC.ecore#//Contig/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scaffoldsAC.ecore#//Contig/multiplicity"/>
+    </genClasses>
+    <genClasses ecoreClass="scaffoldsAC.ecore#//Edge">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scaffoldsAC.ecore#//Edge/vertices"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scaffoldsAC.ecore#//Edge/weight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scaffoldsAC.ecore#//Edge/distance"/>
+    </genClasses>
+    <genClasses ecoreClass="scaffoldsAC.ecore#//Vertex">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference scaffoldsAC.ecore#//Vertex/edges"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute scaffoldsAC.ecore#//Vertex/num"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
