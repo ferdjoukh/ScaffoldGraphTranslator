@@ -24,7 +24,8 @@ public class createScaffold {
 	public static void main(String[] args) throws IOException {
 				
 		if(args.length==0){
-			System.out.println("xmi2scaffold");
+			System.out.println("ScaffoldGraphTranslator");
+			System.out.println("");
 			System.out.println("  This tool translates Scaffold graphs from xmi format to the "
 					+ "\n  Scaffold graph format");
 			System.out.println("");
@@ -74,7 +75,12 @@ public class createScaffold {
 			if(contig.getVertices().size()==2) {
 				Vertex vertex1 = contig.getVertices().get(0);
 				Vertex vertex2 = contig.getVertices().get(1);
-				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [penwidth=10];\n");
+				
+				ecrivain.write(vertex1.getNum() + " [label="+ vertex1.getNum() +"];\n");
+				ecrivain.write(vertex2.getNum() + " [label="+ vertex2.getNum() +"];\n");
+				
+				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [cname="+"_len_"+contig.getLength()+",length="+contig.getLength()+","
+																		+ "style=bold,mult="+contig.getMultiplicity()+"];\n");
 			}else {
 				//System.out.println("contig: "+ contig.getLength());
 			}
@@ -84,7 +90,7 @@ public class createScaffold {
 			if(edge.getVertices().size()==2) {
 				Vertex vertex1 = edge.getVertices().get(0);
 				Vertex vertex2 = edge.getVertices().get(1);
-				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [label="+edge.getWeight()+"];\n");
+				ecrivain.write(vertex1.getNum() + "--"+ vertex2.getNum()+ " [label="+edge.getWeight()+",meandist="+edge.getDistance()+",fontsize=20];\n");
 			}else {
 				//System.out.println("edge: "+ edge.getWeight());
 			}
