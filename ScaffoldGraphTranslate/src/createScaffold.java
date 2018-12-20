@@ -31,18 +31,16 @@ public class createScaffold {
 			System.out.println("");
 			System.out.println("");
 			System.out.println("USE IT");
-			System.out.println("  java -jar ScaffoldGraphTranslator.jar ScaffoldGraphsFolder");
+			System.out.println("  with pdf: java -jar ScaffoldGraphTranslator.jar ScaffoldGraphsFolder outputfolder yes");
+			System.out.println("  without pdf: java -jar ScaffoldGraphTranslator.jar ScaffoldGraphsFolder outputfolder no");
 			System.out.println("");
 			System.out.println("OUTPUT");
 			System.out.println("  .dot files representing the scaffold graph");
 			System.out.println("  .pdf files representing the scaffold graph (if dot is installed)");
 			
-		}else {
+		}else if(args.length == 3) {
 			
 			File dir = new File(args[0]);
-			
-			File outdir = new File("output");
-			outdir.mkdir();
 			
 			if(dir.isDirectory()) {
 				File[] allFiles= dir.listFiles();
@@ -51,16 +49,23 @@ public class createScaffold {
 						
 					if(f.getName().endsWith(".xmi")) {
 						ScaffoldGraph root = loadRootPackage(f.getPath());
-						generateScaffold(root,f.getPath(),"output/"+f.getName());
+						
+						File outdir = new File(args[1]);
+						if(!outdir.isDirectory()) {
+							outdir.mkdir();
+						}
+						generateScaffold(root,f.getPath(),args[1]+"/"+f.getName(),args[2]);
 					}
 				}
 			}else {
 				System.out.println(args[0] + " is not a directory");
 			}
+		}else {
+			System.out.println("[Problem] incorrect number of parameters ! Please retry !");
 		}
 	}
 	
-	public static void generateScaffold(ScaffoldGraph graph,String inputModelPath, String outputModelPath) throws IOException {
+	public static void generateScaffold(ScaffoldGraph graph,String inputModelPath, String outputModelPath, String pdf) throws IOException {
 		
 		String modelName = outputModelPath.substring(0, outputModelPath.lastIndexOf("."));
 		String outputModel = modelName;
@@ -109,11 +114,17 @@ public class createScaffold {
 		/////////////////////////////////////////////////////
 		String cmd = "dot -Tpdf "+outputModel+".dot -o "+outputModel+".pdf";
 		
-		try {
-			Process p = Runtime.getRuntime().exec(cmd);
-			System.out.println("OK ["+ inputModelPath +"] was translated to ["+outputModel+".pdf]");
+		if(pdf.equals("yes")) {
+		
+			try {
+				Process p = Runtime.getRuntime().exec(cmd);
+				System.out.println("OK ["+ inputModelPath +"] was translated to ["+outputModel+".pdf]");
+			}
+			catch(Exception e){
+				System.out.println("OK ["+ inputModelPath +"] was translated to ["+outputModel+".dot]");
+			}
 		}
-		catch(Exception e){
+		else {
 			System.out.println("OK ["+ inputModelPath +"] was translated to ["+outputModel+".dot]");
 		}
 	}
